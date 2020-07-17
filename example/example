@@ -5,17 +5,18 @@ summary="example package"
 description="example package for build test"
 license="gplv3"
 release="1"
-source=(http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz)
+#source=(http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz)
 
 _setup(){
-	echo "setup" > $INSTALLDIR/hello
+	mkdir -p $INSTALLDIR/hello/
+	echo "setup" > $INSTALLDIR/hello/setup
 
 }
 
 _build(){
-	echo "build" > $INSTALLDIR/hello
+	echo "build" > $INSTALLDIR/hello-build
 }
 
 _install(){
-	echo "install" > $INSTALLDIR/hello
+	echo "install" > $INSTALLDIR/hello-install
 }

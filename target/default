@@ -1,5 +1,22 @@
 #!/bin/bash
 
+__write_remove(){
+	cd $INSTALLDIR
+	find  | while read line
+	do
+		if [ -f $line ] ; then
+			echo "rm -f $line" | sed "s/\.\//\//g"
+		fi
+	done
+	find  | while read line
+	do
+		if [ -d $line ] && [ $line != "." ] ; then
+			echo "rmdir $line 2>/dev/null" | sed "s/\.\//\//g"
+		fi
+	done
+	echo "rm -f /info/$name"
+	echo "rm -f /info/$name.remove"
+}
 
 _create_metadata(){
 	mkdir $PKGDIR/info/
@@ -14,11 +31,10 @@ _create_metadata(){
 	cd $INSTALLDIR
 	find >> $PKGDIR/info/$name
 	echo "----end----" >> $PKGDIR/info/$name
+	__write_remove >> $PKGDIR/info/$name.remove
 }
-
 _package(){
-	cd $INSTALLDIR
-	tar -cf $PKGDIR/$name-$version.tar *
+	cp -prfv $INSTALLDIR/* $PKGDIR/
 	cd $PKGDIR
 	tar -cf $CURDIR/$name-$version.tar *
 
