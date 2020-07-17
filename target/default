@@ -2,7 +2,18 @@
 
 
 _create_metadata(){
-	echo "$name-$version" > $PKGDIR/info
+	mkdir $PKGDIR/info/
+	echo "----begin----" >> $PKGDIR/info/$name
+	echo "Build date : $(date)" >> $PKGDIR/info/$name
+	echo "----info----" >> $PKGDIR/info/$name
+	echo "Name: $name" >> $PKGDIR/info/$name
+	echo "Version: $version" >> $PKGDIR/info/$name
+	echo "Summary: $summary" >> $PKGDIR/info/$name
+	echo "Description: $description" >> $PKGDIR/info/$name
+	echo "----files----" >> $PKGDIR/info/$name
+	cd $INSTALLDIR
+	find >> $PKGDIR/info/$name
+	echo "----end----" >> $PKGDIR/info/$name
 }
 
 _package(){
