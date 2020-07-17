@@ -1,0 +1,13 @@
+#!/bin/bash
+export name="unnamed"
+export version="1.0"
+export release="1"
+export homepage="https://example.github.io"
+export url="https://gitlab.com/example"
+export date="01.01.1970"
+export maintainer="packager"
+export email="packager@package.org"
+export summary="summary missing"
+export description="description missing"
+export size="31"
+export license="gplv3"

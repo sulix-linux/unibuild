@@ -1,0 +1,90 @@
+#!/bin/bash
+
+__write_metadata(){
+	echo -e "<INARY>"
+	echo -e "    <Source>"
+	echo -e "        <Name>$name</Name>"
+	echo -e "        <Homepage>$url</Homepage>"
+	echo -e "        <Packager>"
+	echo -e "            <Name>Auto generated</Name>"
+	echo -e "            <Email>auto@generat.et</Email>"
+	echo -e "        </Packager>"
+	echo -e "    </Source>"
+	echo -e "    <Package>"
+	echo -e "    <RFP></RFP>"
+	if [ ! "$partof" == "" ] ; then
+		echo -e "    <PartOf>$partof</PartOf>"
+	fi
+	echo -e "        <Name>$name</Name>"
+	echo -e "        <Summary xml:lang=\"en\">$summary</Summary>"
+	echo -e "        <Description xml:lang=\"en\">$description</Description>"
+	if [ ! "$isa" == "" ] ; then
+		echo -e "        <IsA>$isa</IsA>"
+	fi
+	echo -e "        <License>$license</License>"
+	echo -e "    <RuntimeDependencies>"
+	for dep in ${depends[@]}
+	do
+		echo -e "        <Dependency>$dep</Dependency>"
+	done
+	echo -e "    </RuntimeDependencies>"
+	echo -e "        <Files>"
+	echo -e "            <Path fileType=\"data\">/usr</Path>"
+	echo -e "            <Path fileType=\"data\">/etc</Path>"
+	echo -e "            <Path fileType=\"data\">/bin</Path>"
+	echo -e "            <Path fileType=\"data\">/var</Path>"
+	echo -e "            <Path fileType=\"data\">/lib</Path>"
+	echo -e "            <Path fileType=\"data\">/boot</Path>"
+	echo -e "        </Files>"
+	echo -e "        <History>"
+	echo -e "            <Update release=\"$release\">"
+	echo -e "                <Date>$date</Date>"
+	echo -e "                <Version>$version</Version>"
+	echo -e "                <Comment>Auto generated.</Comment>"
+	echo -e "                <Name>Auto generated</Name>"
+	echo -e "                <Email>auto@generat.et</Email>"
+	echo -e "            </Update>"
+	echo -e "        </History>"
+	echo -e "        <BuildHost>uludag</BuildHost>"
+	echo -e "        <Distribution>Sulin</Distribution>"
+	echo -e "        <DistributionRelease>2019</DistributionRelease>"
+	echo -e "        <Architecture>x86_64</Architecture>"
+	echo -e "        <InstalledSize>1</InstalledSize>"
+	echo -e "        <InstallTarHash>@tarhash@</InstallTarHash>"
+	echo -e "        <PackageFormat>1.2</PackageFormat>"
+	echo -e "    </Package>"
+	echo -e "</INARY>" 
+	}
+
+_create_metadata(){
+	__write_metadata >> $PKGDIR/metadata.xml
+}
+
+_package(){
+	cd $INSTALLDIR
+	[ -f ../install.tar.xz ] && rm -f ../install.tar.xz
+	tar --xz -cf ../install.tar.xz *
+	echo -e "<Files>" > ../files.xml
+	find | sed "s|^\./||g" | while read line
+	do
+	if [ -f $line ] ; then
+		echo -e "   <File>" >> ../files.xml
+	        echo -e "      <Path>$line</Path>" >> ../files.xml
+        	echo -e "      <Type>data</Type>" >> ../files.xml
+        	echo -e "      <Size>$(du -b $line | awk '{print $1}')</Size>" >> ../files.xml
+        	echo -e "      <Uid>0</Uid>" >> ../files.xml
+        	echo -e "      <Gid>0</Gid>" >> ../files.xml
+        	echo -e "      <Mode>0o755</Mode>" >> ../files.xml
+        	echo -e "      <Hash>$(sha1sum $line | awk '{print $1}')</Hash>" >> ../files.xml
+        	echo -e "   </File>" >> ../files.xml
+	fi
+	done
+	echo -e "</Files>" >> ../files.xml
+	mv ../files.xml $PKGDIR/files.xml
+	mv ../install.tar.xz $PKGDIR/install.tar.xz
+	cd $PKGDIR
+	export installtarhash="$(sha1sum install.tar.xz | awk '{print $1}')"
+	sed -i "s/@tarhash@/$installtarhash/g" metadata.xml
+	zip -r $CURDIR/$name-$version.inary *
+
+}

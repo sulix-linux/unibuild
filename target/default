@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+_create_metadata(){
+	echo "$name-$version" > $PKGDIR/info
+}
+
+_package(){
+	cd $INSTALLDIR
+	tar -cf $PKGDIR/$name-$version.tar *
+	cd $PKGDIR
+	tar -cf $CURDIR/$name-$version.tar *
+
+}

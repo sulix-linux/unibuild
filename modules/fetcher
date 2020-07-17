@@ -1,0 +1,27 @@
+#!/bin/bash
+_fetch(){
+cd $WORKDIR
+for src in ${source[@]} ; do
+	if echo "$src" | grep "git://" &>/dev/null ; then
+		srcloc=$(echo $src | sed "s|^.*git://|git://|g")
+		srcname=$(echo $src | sed "s|::git://.*$||g")
+		echo $srcloc $srcname
+		[ -d "$srcname" ] || git clone $srcloc $srcname
+	elif echo "$src" | grep "^git+" &>/dev/null ; then
+		srcloc=$(echo $src | sed "s|^git+||g")
+		git clone $srcloc || true
+	elif echo "$src" | grep "::http" &>/dev/null ; then
+		srcloc=$(echo $src | sed "s|^.*::||g")
+		srcname=$(echo $src | sed "s|::http.*$||g")
+		echo $srcloc
+		wget -c $srcloc -O $srcname
+		echo $srcname | grep ".tar.*" && tar -xf $srcname
+	elif [ -f $src ] ; then
+		touch $src
+	else
+		wget -c $src -O $(basename $src) || true
+		basename $src | grep ".tar.*" && tar -xf $(basename $src) || true
+	fi
+done
+cd $CURDIR
+}

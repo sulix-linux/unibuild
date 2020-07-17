@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ "$TARGET" == "" ] ; then
+	if [ -d /var/lib/dpkg ] ; then
+		export TARGET=debian
+	elif [ -d /var/lib/inary ] ; then
+		export TARGET=inary
+	fi
+fi

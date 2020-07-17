@@ -1,0 +1,21 @@
+#!/bin/bash
+name="example"
+version="1.0"
+summary="example package"
+description="example package for build test"
+license="gplv3"
+release="1"
+source=(http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz)
+
+_setup(){
+	echo "setup" > $INSTALLDIR/hello
+
+}
+
+_build(){
+	echo "build" > $INSTALLDIR/hello
+}
+
+_install(){
+	echo "install" > $INSTALLDIR/hello
+}
