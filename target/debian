@@ -1,0 +1,39 @@
+#!/bin/bash
+
+_write_metadata(){
+echo -e "Package: $name"
+echo -e "Source: $source"
+echo -e "Version: $version"
+echo -e "Architecture: $arch"
+echo -e "Maintainer: $maintainer <$email>"
+echo -e "Installed-Size: 1"
+echo -ne "Depends: "
+for dep in ${depends[@]:0:${#depends[@]}-1}
+do
+	echo -ne " $dep,"
+done
+echo -e "${depends[@]:-1}"
+echo -e "Section: $partof"
+echo -e "Homepage: $homepage"
+echo -e "Description: $description"
+}
+
+_create_metadata(){
+	mkdir -p $PKGDIR/DEBIAN
+	_write_metadata > $PKGDIR/DEBIAN/control
+	cd $INSTALLDIR
+	touch $PKGDIR/DEBIAN/md5sums
+	find . | while read line
+	do
+		[ -f $line ] && md5sum $line | sed "s|^\./||g" >> $PKGDIR/DEBIAN/md5sums
+	done
+}
+_package(){
+	cd $INSTALLDIR
+	tar --gzip -cvf $PKGDIR/data.tar.gz ./*
+	cd $PKGDIR/DEBIAN
+	tar --gzip -cvf $PKGDIR/control.tar.gz *
+	echo "2.0" > $PKGDIR/debian-binary
+	cd $PKGDIR
+	ar r "$CURDIR/${name}_${arch}_${version}.deb" debian-binary control.tar.gz data.tar.gz
+}

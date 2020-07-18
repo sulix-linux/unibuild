@@ -6,3 +6,15 @@ if [ "$TARGET" == "" ] ; then
 		export TARGET=inary
 	fi
 fi
+if [ "$TARGET" == "debian" ] ; then
+	if [ "$arch" == "" ] ; then
+		[ "$(uname -m)" == "x86_64" ] && export arch="amd64"
+		[ "$(uname -m)" == "i686" ] && export arch="i386"
+		[ "$(uname -m)" == "aarch64" ] && export arch="arm64"
+		[ "$(uname -m)" == "armhf" ] && export arch="arm"
+	fi
+elif [ "$TARGET" == "inary" ] ; then
+	if [ "$arch" == "" ] ; then
+		export arch="$(uname -m)"
+	fi
+fi
