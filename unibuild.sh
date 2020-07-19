@@ -1,7 +1,8 @@
 #!/bin/bash
-set -e
 [ "$MODDIR" == "" ] && export MODDIR=/usr/lib/unibuild/modules
+set -e
 for mod in $(ls $MODDIR) ; do
+	echo "Loading: $mod"
 	source $MODDIR/$mod
 done
 if [ -f "$1" ] ; then
