@@ -22,7 +22,7 @@ echo "Name=$name"
 [ "$executable" == "" ] && export executable=$name
 echo "Exec=$executable"
 echo "Comment=$summary"
-[ "$icon" == "" ] export icon=$name
+[ "$icon" == "" ] && export icon=$name
 echo "Icon=$name"
 if [ "$categories" == "" ] ; then
 	echo "Categories=$categories"
@@ -39,7 +39,10 @@ _create_metadata(){
 }
 _package(){
 	# checking appimagekit
-	[ -f ~/.appimagekit ] || wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-$(uname -m).AppImage -O ~/.appimagekit
+	if [ ! -f ~/.appimagekit ] ; then
+		wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-$(uname -m).AppImage -O ~/.appimagekit
+		chmod +x ~/.appimagekit
+	fi
 	cp -prfv $INSTALLDIR/* $PKGDIR/
 	cd $CURDIR
 	ARCH=$(uname -m) ~/.appimagekit $PKGDIR
