@@ -4,7 +4,15 @@ set -e
 for mod in $(ls $MODDIR) ; do
 	source $MODDIR/$mod
 done
-source $1
+if [ -f "$1" ] ; then
+	source $1
+elif "echo $1" | grep "^.*://" &>/dev/null ; then
+	wget $1 -O /tmp/unibuild.file
+	source /tmp/unibuild.file
+else
+	echo "Source not detected or not supported."
+	exit 1
+fi
 source $MODDIR/../target/$TARGET
 source $MODDIR/../host/$HOST
 _get_build_deps
