@@ -5,10 +5,9 @@ for mod in $(ls $MODDIR) ; do
 	source $MODDIR/$mod
 done
 if [ -f "$1" ] ; then
-	source $1
-elif "echo $1" | grep "^.*://" &>/dev/null ; then
-	wget $1 -O /tmp/unibuild.file
-	source /tmp/unibuild.file
+	source <(cat $1)
+elif echo "$1" | grep "^.*://" &>/dev/null ; then
+	source <(curl $1)
 else
 	echo "Source not detected or not supported."
 	exit 1
