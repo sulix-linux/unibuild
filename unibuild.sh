@@ -20,3 +20,4 @@ cd $WORKDIR
 _create_metadata
 cd $WORKDIR
 _package
+rm -rf $WORKDIR
