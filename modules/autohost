@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ "$HOST" == "" ] ; then
+	if [ -d /var/lib/dpkg ] ; then
+		export HOST=debian
+	elif [ -d /var/lib/inary ] ; then
+		export HOST=inary
+	else
+		export HOST=default
+	fi
+fi

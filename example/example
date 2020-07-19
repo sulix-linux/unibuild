@@ -3,6 +3,7 @@ name="example"
 version="1.0"
 summary="example package"
 description="example package for build test"
+builddepends=("gcc" "aaaa")
 depends=("hello")
 license="gplv3"
 release="1"

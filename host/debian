@@ -1,0 +1,12 @@
+#!/bin/bash
+_get_build_deps(){
+	needed=""
+	for i in ${builddepends[@]}
+	do
+		cat /var/lib/dpkg/status | grep "^Package: $i$" &>/dev/null || needed="$needed $i"
+	done
+	if [ "$needed" != "" ] ; then
+	    echo "Missing: $needed"
+	    su -c "apt-get install $needed" || exit 1
+	fi
+}

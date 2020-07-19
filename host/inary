@@ -1,0 +1,12 @@
+#!/bin/bash
+_get_build_deps(){
+	needed=""
+	for i in ${builddepends[@]}
+	do
+		ls /var/lib/inary/package/ | grep "^$i-[1-9]" &>/dev/null || needed="$needed $i"
+	done
+	if [ "$needed" != "" ] ; then
+	    echo "Missing: $needed"
+	    su -c "inary it $needed" || exit 1
+	fi
+}

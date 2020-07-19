@@ -5,8 +5,9 @@ for mod in $(ls $MODDIR) ; do
 done
 source $1
 source $MODDIR/../target/$TARGET
-echo $TARGET
+source $MODDIR/../host/$HOST
 set -e
+_get_build_deps
 cd $BUILDDIR
 _fetch
 cd $WORKDIR
