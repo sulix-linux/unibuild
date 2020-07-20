@@ -1,0 +1,11 @@
+#!/bin/bash
+wsl_block(){
+    var=$(uname -r)
+    if [[ "$var" == *Microsoft* || "$var" == "*WSL*" ]]
+    then
+        exit 1
+    fi
+}
+
+wsl_block
+
