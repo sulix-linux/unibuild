@@ -11,14 +11,14 @@ fi
 set +e
 if [ "$TARGET" == "debian" ] ; then
 	if [ "$arch" == "" ] ; then
-		[ "$(uname -m)" == "x86_64" ] && export arch="amd64"  || true
-		[ "$(uname -m)" == "i686" ] && export arch="i386" || true
-		[ "$(uname -m)" == "aarch64" ] && export arch="arm64"  || true
-		[ "$(uname -m)" == "armhf" ] && export arch="arm"  || true
+		[ "$(uname -m)" == "x86_64" ] && arch="amd64"  || true
+		[ "$(uname -m)" == "i686" ] && arch="i386" || true
+		[ "$(uname -m)" == "aarch64" ] && arch="arm64"  || true
+		[ "$(uname -m)" == "armhf" ] && arch="arm"  || true
 	fi
 elif [ "$TARGET" == "inary" ] ; then
 	if [ "$arch" == "" ] ; then
-		export arch="$(uname -m)"
+		arch="$(uname -m)"
 	fi
 fi
 set -e
