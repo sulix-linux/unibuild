@@ -1,5 +1,6 @@
 #!/bin/bash
-autoconfigure(){
+export NOCONFIGURE=1
+confmake(){
 	./configure --prefix=/usr "$@"
 	make -j$(nproc)
 }
