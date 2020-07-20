@@ -10,7 +10,7 @@ echo -e "Installed-Size: 1"
 echo -ne "Depends: "
 for dep in ${depends[@]:0:${#depends[@]}-1}
 do
-	echo -ne " $dep,"
+	echo -ne " $dep, "
 done
 echo -e "${depends[@]:-1}"
 echo -e "Section: $partof"
