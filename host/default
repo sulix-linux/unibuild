@@ -6,7 +6,7 @@ _get_build_deps(){
 		[ -f /info/$i ] || needed="$needed $i"
 	done
 	if [ "$needed" != "" ] ; then
-	    echo "Missing: $needed" 
+	    err "Missing: $needed" 
 	    exit 1
 	fi
 }

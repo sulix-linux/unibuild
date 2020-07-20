@@ -4,6 +4,8 @@ if [ "$TARGET" == "" ] ; then
 		export TARGET=debian
 	elif [ -d /var/lib/inary ] ; then
 		export TARGET=inary
+	else
+		export TARGET=default
 	fi
 fi
 set +e
@@ -20,3 +22,4 @@ elif [ "$TARGET" == "inary" ] ; then
 	fi
 fi
 set -e
+info "Target=$TARGET"

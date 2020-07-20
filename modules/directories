@@ -4,5 +4,5 @@ export BUILDDIR=$(mktemp -d)
 export WORKDIR=$BUILDDIR/work
 export INSTALLDIR=$BUILDDIR/install
 export PKGDIR=$BUILDDIR/package
-[ "$TARGET" == "" ] && export TARGET="default"
 mkdir -p $WORKDIR $PKGDIR $INSTALLDIR
+info "Build Directory=$BUILDDIR"

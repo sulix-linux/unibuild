@@ -8,3 +8,4 @@ if [ "$HOST" == "" ] ; then
 		export HOST=default
 	fi
 fi
+info "Host=$HOST"

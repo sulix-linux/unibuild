@@ -1,0 +1,6 @@
+#!/bin/bash
+autoconfigure(){
+	./configure --prefix=/usr "$@"
+	make -j$(nproc)
+}
+

@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ -f "/etc/lsb-release" ] ; then
+	export DISTRO=$(cat /etc/lsb-release | grep "^DISTRIB_ID=" | head -n 1 | sed "s/.*=//g")
+elif [ -f "/etc/os-release" ] ; then
+	export DISTRO=$(cat /etc/os-release | grep "^NAME=" | head -n 1 | sed "s/.*=//g")
+elif [ -d /var/lib/dpkg/ ] ; then
+	export DISTRO="Debian"
+elif [ -d /var/lib/inary ] ; then
+	export DISTRO="Sulin"
+else
+	export DISTRO="Unknown"
+fi
+info "Distro=$DISTRO"

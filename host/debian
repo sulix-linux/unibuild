@@ -6,7 +6,7 @@ _get_build_deps(){
 		cat /var/lib/dpkg/status | grep "^Package: $i$" &>/dev/null || needed="$needed $i"
 	done
 	if [ "$needed" != "" ] ; then
-	    echo "Missing: $needed"
+	    err "Missing: $needed"
 	    su -c "apt-get install $needed" || exit 1
 	fi
 }

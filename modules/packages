@@ -2,6 +2,7 @@
 export name="unnamed"
 export version="1.0"
 export release="1"
+export arch="$(uname -m)"
 export homepage="https://example.github.io"
 export url="https://gitlab.com/example"
 export date="01.01.1970"
