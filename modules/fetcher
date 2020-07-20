@@ -6,19 +6,24 @@ for src in ${source[@]} ; do
 		srcloc=$(echo $src | sed "s|^.*git://|git://|g")
 		srcname=$(echo $src | sed "s|::git://.*$||g")
 		echo $srcloc $srcname
+		info "Clonning: $srcloc"
 		[ -d "$srcname" ] || git clone $srcloc $srcname
 	elif echo "$src" | grep "^git+" &>/dev/null ; then
 		srcloc=$(echo $src | sed "s|^git+||g")
+		info "Clonning: $srcloc"
 		git clone $srcloc || true
 	elif echo "$src" | grep "::http" &>/dev/null ; then
 		srcloc=$(echo $src | sed "s|^.*::||g")
 		srcname=$(echo $src | sed "s|::http.*$||g")
 		echo $srcloc
+		info "Downloading: $srcloc"
 		wget -c $srcloc -O $srcname
 		echo $srcname | grep ".tar.*" && tar -xf $srcname
-	elif [ -f $src ] ; then
-		touch $src
+	elif [ -f $CURDIR/$src ] ; then
+		info "Copying: $src"
+		cp -prfv $CURDIR/$src $WORKDIR/
 	else
+		info "Downloading: $srcloc"
 		wget -c $src -O $(basename $src) || true
 		basename $src | grep ".tar.*" && tar -xf $(basename $src) || true
 	fi

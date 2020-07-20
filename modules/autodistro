@@ -11,3 +11,4 @@ else
 	export DISTRO="Unknown"
 fi
 info "Distro=$DISTRO"
+info "Type=$(uname)"
