@@ -1,6 +1,6 @@
 #!/bin/bash
 export CURDIR=$(pwd)
-export BUILDDIR=$(mktemp -d)
+export BUILDDIR=/tmp/unibuild
 export WORKDIR=$BUILDDIR/work
 export INSTALLDIR=$BUILDDIR/install
 export PKGDIR=$BUILDDIR/package
