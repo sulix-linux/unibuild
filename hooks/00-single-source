@@ -17,5 +17,8 @@ else
 		BuildType="python"
 	elif [ -f "$WORKDIR/configure" ] ; then
 		BuildType="autotools"
+	else
+		err "Some functions missing or unibuild could not detected build type!!!"
+		exit 127
 	fi
 fi

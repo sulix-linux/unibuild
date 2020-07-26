@@ -12,7 +12,7 @@ if [ -f "$1" ] ; then
 elif echo "$1" | grep "^.*://" &>/dev/null ; then
 	source <(curl $1)
 else
-	echo "Source not detected or not supported."
+	err "Source not detected or not supported."
 	exit 1
 fi
 source $MODDIR/../target/$TARGET
