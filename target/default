@@ -2,13 +2,13 @@
 
 __write_remove(){
 	cd $INSTALLDIR
-	find  | while read line
+	find | sort | while read line
 	do
 		if [ -f $line ] ; then
 			echo "rm -f $line" | sed "s/\.\//\//g"
 		fi
 	done
-	find  | while read line
+	find | sort -r | while read line
 	do
 		if [ -d $line ] && [ $line != "." ] ; then
 			echo "rmdir $line 2>/dev/null" | sed "s/\.\//\//g"

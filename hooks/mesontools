@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ "$BuildType" == "meson" ] ; then
+	_setup(){
+		unibuild-meson build $CONFIG_OPTIONS
+	}
+
+	_build(){
+		ninja -c build
+	}
+
+	_install(){
+		DESTDIR="$INSTALLDIR" meson install -C build
+	}
+fi

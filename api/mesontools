@@ -12,10 +12,3 @@ unibuild-meson(){
 	  "$@"
 
 }
-automeson(){
-	mkdir build
-	meson build "$@"
-	cd build
-	ninja
-	cd ..
-}

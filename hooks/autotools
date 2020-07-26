@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ "$BuildType" == "autotools" ] ; then
+	_setup(){
+		if [ -f "./autogen.sh" ] ; then
+			NOCONFIGURE=1 ./autogen.sh
+		fi
+		conf $CONFIG_OPTIONS
+	}
+
+	_build(){
+		make -j$(nproc)
+	}
+
+	_install(){
+		make install DESTDIR=$INSTALLDIR
+	}
+fi

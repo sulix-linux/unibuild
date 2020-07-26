@@ -1,0 +1,12 @@
+#!/bin/bash
+name="bash"
+version="5.0"
+summary="Bash shell"
+executable="bash"
+description="The bash shell"
+builddepends=("gcc")
+depends=("readline")
+license="gplv3"
+release="1"
+source=(https://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz)
+#BuildType="autotools"

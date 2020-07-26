@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ "$BuildType" == "python" ] ; then
+	_setup(){
+		info "Setup not needed"
+	}
+
+	_build(){
+		python3 setup.py build
+	}
+
+	_install(){
+		python3 setup.py install --root="$INSTALLDIR" --optimize=1 --skip-build
+	}
+fi

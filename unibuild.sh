@@ -17,11 +17,16 @@ else
 fi
 source $MODDIR/../target/$TARGET
 source $MODDIR/../host/$HOST
+
 msg ">>> Checking dependencies"
 _get_build_deps
 cd $BUILDDIR
 msg ">>> Getting sources"
 _fetch
+msg ">>> Running hooks"
+for hook in $(ls $MODDIR/../hooks | sort) ; do
+	source $MODDIR/../hooks/$hook
+done
 cd $WORKDIR
 msg ">>> Running setup function"
 _setup

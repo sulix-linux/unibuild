@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ "$BuildType" == "cmake" ] ; then
+	_setup(){
+		cmake_configure $CONFIG_OPTIONS
+	}
+
+	_build(){
+		make -j$(nproc)
+	}
+
+	_install(){
+		make install DESTDIR=$INSTALLDIR
+	}
+fi

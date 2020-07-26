@@ -4,4 +4,6 @@ confmake(){
 	./configure --prefix=/usr "$@"
 	make -j$(nproc)
 }
-
+conf(){
+	./configure --prefix=/usr "$@"
+}
