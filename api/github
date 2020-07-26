@@ -1,0 +1,8 @@
+#!/bin/bash
+github(){
+	user=$1
+	project=$2
+	version=$(curl https://github.com/$user/$project/releases | grep "/.*..tar.gz"  | sed "s/.*href=\"//g" | sed "s/\".*//g" | grep "^/" |  head -n 1)
+	echo https://github.com$version
+
+}

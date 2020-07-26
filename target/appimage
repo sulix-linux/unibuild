@@ -61,7 +61,7 @@ _package(){
 		chmod +x ~/.appimagekit
 	fi
 	cp -prfv $INSTALLDIR/* $PKGDIR/
-	find $INSTALLDIR | copy_library &> /dev/null || true
+	[ "${PORTABLE}" == "true" ] && find $INSTALLDIR | copy_library &> /dev/null || true
 	cd $CURDIR
 	ARCH=$(uname -m) ~/.appimagekit $PKGDIR
 }

@@ -1,26 +1,24 @@
 #!/bin/bash
-name="example"
+name="unibuild"
 version="1.0"
-summary="example package"
-executable="hello"
-description="example package for build test"
-builddepends=("gcc")
-depends=("hello" "cc" "aa")
+summary="Universal builder"
+executable="unibuild"
+description="The universal build system for posix"
+builddepends=("bash")
+depends=("curl" "wget" "bash")
 license="gplv3"
 release="1"
-#source=(http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz)
+source=(git+https://gitlab.com/sulinos/devel/unibuild)
 
 _setup(){
-	mkdir -p ./bin/
-	echo "echo hello world" > ./bin/hello
+	export WORKDIR=$WORKDIR/unibuild
 
 }
 
 _build(){
-	chmod +x ./bin/hello
+	chmod +x ./install.sh
 }
 
 _install(){
-	mkdir -p $INSTALLDIR/bin/
-	install ./bin/hello $INSTALLDIR/bin/hello
+	DESTDIR=$INSTALLDIR ./install.sh
 }

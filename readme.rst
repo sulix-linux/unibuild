@@ -13,3 +13,8 @@ for install
 ===========
 DESTDIR=*your_DESTDIR* bash install.sh
 
+Simple usage
+============
+[TARGET=*your_target*] **unibuild** [*file/url*]
+
+
