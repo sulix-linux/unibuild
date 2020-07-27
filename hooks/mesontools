@@ -5,7 +5,7 @@ if [ "$BuildType" == "meson" ] ; then
 	}
 
 	_build(){
-		ninja -c build
+		ninja -C build
 	}
 
 	_install(){

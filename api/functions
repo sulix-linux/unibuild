@@ -1,6 +1,6 @@
 #!/bin/bash
 fn_exists(){
-    LC_ALL=C type $1 | grep -q 'shell function' &>/dev/null
+    LC_ALL=C type $1 2>/dev/null | grep -q 'shell function' &>/dev/null
 }
 is_target(){
 	return [ "$TARGET" == "$1" ]
