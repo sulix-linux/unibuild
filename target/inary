@@ -6,8 +6,8 @@ __write_metadata(){
 	echo -e "        <Name>$name</Name>"
 	echo -e "        <Homepage>$url</Homepage>"
 	echo -e "        <Packager>"
-	echo -e "            <Name>Auto generated</Name>"
-	echo -e "            <Email>auto@generat.et</Email>"
+	echo -e "            <Name>$maintainer</Name>"
+	echo -e "            <Email>$email</Email>"
 	echo -e "        </Packager>"
 	echo -e "    </Source>"
 	echo -e "    <Package>"
@@ -18,8 +18,10 @@ __write_metadata(){
 	echo -e "        <Name>$name</Name>"
 	echo -e "        <Summary xml:lang=\"en\">$summary</Summary>"
 	echo -e "        <Description xml:lang=\"en\">$description</Description>"
-	if [ ! "$isa" == "" ] ; then
-		echo -e "        <IsA>$isa</IsA>"
+	if [ ! "${#isa[@]}" == "0" ] ; then
+		for i in ${isa[@]} ; do
+			echo -e "        <IsA>$i</IsA>"
+		done
 	fi
 	echo -e "        <License>$license</License>"
 	echo -e "    <RuntimeDependencies>"
@@ -41,14 +43,14 @@ __write_metadata(){
 	echo -e "                <Date>$date</Date>"
 	echo -e "                <Version>$version</Version>"
 	echo -e "                <Comment>Auto generated.</Comment>"
-	echo -e "                <Name>Auto generated</Name>"
-	echo -e "                <Email>auto@generat.et</Email>"
+	echo -e "                <Name>$maintainer</Name>"
+	echo -e "                <Email>$email</Email>"
 	echo -e "            </Update>"
 	echo -e "        </History>"
 	echo -e "        <BuildHost>uludag</BuildHost>"
 	echo -e "        <Distribution>Sulin</Distribution>"
 	echo -e "        <DistributionRelease>2019</DistributionRelease>"
-	echo -e "        <Architecture>x86_64</Architecture>"
+	echo -e "        <Architecture>$arch</Architecture>"
 	echo -e "        <InstalledSize>1</InstalledSize>"
 	echo -e "        <InstallTarHash>@tarhash@</InstallTarHash>"
 	echo -e "        <PackageFormat>1.2</PackageFormat>"

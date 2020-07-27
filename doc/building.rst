@@ -108,6 +108,12 @@ no           summary         Package summary.                                   
 **yes**      depends         Package runtime dependencies.                                Array
 no           license         Source code license.                                         String
 **yes**      partof          Package section or component name.                           String
+**yes**      categories      Appilcation categories. Used by appimage                     String
+**yes**      icon            Application icon name or path. Used by appimage              String
+**yes**      arch            Package architecture. if dont define, auto detected.         String
+**yes**      maintainer      Package maintainer name.                                     String
+**yes**      email           Packager email.                                              String
+**yes**      isa             Package type. Used by inary.                                 Array
 ========     ============    ========================================================     =======
 
 Unibuild supported different source types. All known source types:
