@@ -28,15 +28,15 @@ BUILDDIR
 Main directory that uses for all operations. Unibuild create 3 directory for building. **WORKDIR** **INSTALLDIR** **PKGDIR**
 All directories in builddir. Unibuild created builddir with **mktemp -d** command.
 
-1. WORKDIR
+**1. WORKDIR**
 
 Workdir is building directory. Before running functions, unibuild go workdir. Workdir is changeable variable. If only one source directory in workdir. unibuild automaticaly change workdir as source directory.
 
-2. INSTALLDIR
+**2. INSTALLDIR**
 
 Installdir is package destdir. Spec must store package files in here.
 
-3. PKGDIR
+**3. PKGDIR**
 
 Pkgdir is packaging directory required by target packager.
 

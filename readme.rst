@@ -17,4 +17,6 @@ Simple usage
 ============
 [TARGET=*your_target*] **unibuild** [*file/url*]
 
-
+Documentation
+=============
+Visit https://gitlab.com/sulinos/devel/unibuild/-/blob/master/doc/building.rst

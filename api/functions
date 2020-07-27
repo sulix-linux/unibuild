@@ -2,3 +2,9 @@
 fn_exists(){
     LC_ALL=C type $1 | grep -q 'shell function' &>/dev/null
 }
+is_target(){
+	return [ "$TARGET" == "$1" ]
+}
+is_host(){
+	return [ "$HOST" == "$1" ]
+}
