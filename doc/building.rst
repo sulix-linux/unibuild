@@ -11,9 +11,7 @@ Building with unibuild
 	description="The bash shell"
 	source=(https://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz)
 	_setup(){
-		export WORKDIR=$WORKDIR/example
 		./configure --prefix=/usr
-
 	}
 
 	_build(){
@@ -77,6 +75,8 @@ This example uses autotools for compiling. autotools define build functions look
 	
 The gnu bash source code has ./configure script so if you dont define build functions, unibuild detect and set **BuildType** variable.
 
+Function calling order: _setup => _build => _install
+
 Build target and host
 ^^^^^^^^^^^^^^^^^^^^^
 Unibuild is universali builder so supported most of distribution. You can define **TARGET** and **HOST** variables.
@@ -94,21 +94,21 @@ Spec variables
 ^^^^^^^^^^^^^^
 Unibuild spec variables and description avaiable here:
 
-========     ============    ========================================================
-OPTIONAL     VARIABLE        DESCRIPION
-========     ============    ========================================================
-no           name            Package name.
-no           version         Package version. Only can use [0-9] or . or -
-no           release         Package release. Muste be an integer.
-no           sources         Package source code url or path. Must be list.
-yes          executable      Package main executable name. Used by appimage
-no           description     Package description.
-no           summary         Package summary.
-yes          builddepends    Package names that required by compiling. must be array.
-yes          depends         Package runtime dependencies. must be array.
-no           license         Source code license.
-yes          partof          Package section or component name.
-========     ============    ========================================================
+========     ============    ========================================================     =======
+OPTIONAL     VARIABLE        DESCRIPION                                                   Type
+========     ============    ========================================================     =======
+no           name            Package name.                                                String
+no           version         Package version. Only can use [0-9] or . or -                String
+no           release         Package release.                                             Integer
+no           sources         Package source code url or path.                             Array
+**yes**      executable      Package main executable name. Used by appimage               String
+no           description     Package description.                                         String
+no           summary         Package summary.                                             String
+**yes**      builddepends    Package names that required by compiling.                    Array
+**yes**      depends         Package runtime dependencies.                                Array
+no           license         Source code license.                                         String
+**yes**      partof          Package section or component name.                           String
+========     ============    ========================================================     =======
 
 Unibuild supported different source types. All known source types:
 
