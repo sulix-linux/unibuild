@@ -99,8 +99,8 @@ OPTIONAL     VARIABLE        DESCRIPION                                         
 ========     ============    ========================================================     =======
 no           name            Package name.                                                String
 no           version         Package version. Only can use [0-9] or . or -                String
-no           release         Package release.                                             Integer
-no           sources         Package source code url or path.                             Array
+**yes**      release         Package release. Used by inary.                              Integer
+no           source          Package source code url or path.                             Array
 **yes**      executable      Package main executable name. Used by appimage               String
 no           description     Package description.                                         String
 no           summary         Package summary.                                             String
