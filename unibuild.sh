@@ -27,15 +27,21 @@ msg ">>> Running hooks"
 for hook in $(ls $MODDIR/../hooks | sort) ; do
 	source $MODDIR/../hooks/$hook
 done
-cd $WORKDIR
-msg ">>> Running setup function"
-_setup
-cd $WORKDIR
-msg ">>> Running build function"
-_build
-cd $WORKDIR
-msg ">>> Running install function"
-_install
+if fn_exists "_setup" ; then
+	cd $WORKDIR
+	msg ">>> Running setup function"
+	_setup
+fi
+if fn_exists "_build" ; then
+	cd $WORKDIR
+	msg ">>> Running build function"
+	_build
+fi
+if fn_exists "_install" ; then
+	cd $WORKDIR
+	msg ">>> Running install function"
+	_install
+fi
 cd $WORKDIR
 msg ">>> Generating metadata"
 _create_metadata
