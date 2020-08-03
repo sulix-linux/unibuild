@@ -118,9 +118,9 @@ no           license         Source code license.                               
 
 Unibuild supported different source types. All known source types:
 
-1. name::git://xxxx.git
+1. name::git://xxxx.git::branch
 
-2. git+https://xxxxx.git
+2. git+https://xxxxx.git::branch
 
 3. name::https://xxxxx
 

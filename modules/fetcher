@@ -10,15 +10,26 @@ for src in ${source[@]} ; do
 		cp -prfv $CURDIR/$src $WORKDIR/
 
 	elif echo "$src" | grep "git://" &>/dev/null ; then
-		srcloc=$(echo $src | sed "s|^.*git://|git://|g")
+		srcloc=$(echo $src | sed "s|^.*git://|git://|g" | sed "s/::.*//g")
 		srcname=$(echo $src | sed "s|::git://.*$||g")
-		echo $srcloc $srcname
+		branch=$(echo $src | sed "s|^.*::||g")
+		echo $srcloc $srcname $branch
 		info "Clonning: $srcloc"
-		[ -d "$srcname" ] || git clone $srcloc $srcname
+		if [ "$branch" == "" ] ; then
+			[ -d "$srcname" ] || git clone $srcloc $srcname
+		else
+			[ -d "$srcname" ] || git clone $srcloc $srcname -b $branch
+		fi
 	elif echo "$src" | grep "^git+" &>/dev/null ; then
-		srcloc=$(echo $src | sed "s|^git+||g")
+		srcloc=$(echo $src | sed "s|^git+||g" | sed "s/::.*//g")
+		branch=$(echo $src | sed "s|^.*::||g")
+		echo $srcloc $srcname $branch
 		info "Clonning: $srcloc"
-		git clone $srcloc || true
+		if [ "$branch" == "" ] ; then
+			git clone $srcloc || true
+		else
+			git clone $srcloc -b $branch || true
+		fi
 	elif echo "$src" | grep "::http" &>/dev/null ; then
 		srcloc=$(echo $src | sed "s|^.*::||g")
 		srcname=$(echo $src | sed "s|::http.*$||g")

@@ -1,0 +1,18 @@
+#!/bin/bash
+name="inary"
+version="1.4"
+summary="Inary package manager"
+executable="inary"
+description="Package manager for sulinos"
+builddepends=("python3")
+depends=("python3" "curl")
+license="gplv3"
+release="1"
+source=(git+https://gitlab.com/sulinos/devel/inary::develop)
+
+_build(){
+	make build
+}
+_install(){
+	make install DESTDIR=$INSTALLDIR
+}
