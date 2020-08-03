@@ -11,8 +11,9 @@ release="1"
 source=(git+https://gitlab.com/sulinos/devel/unibuild)
 
 _setup(){
-	export WORKDIR=$WORKDIR/unibuild
-
+#	Unibuild has single source mode. so do not do this action
+#	export WORKDIR=$WORKDIR/unibuild
+        echo "Setup not needed"
 }
 
 _build(){
