@@ -3,15 +3,6 @@ if [ "$(ls -F $WORKDIR | grep \/$ | wc -l)" == "1" ] ; then
 	export WORKDIR="$WORKDIR/$(ls -F $WORKDIR | grep \/$)"
 fi
 info "Single source detected: new workdir => $WORKDIR"
-_setup(){
-	true
-}
-_build(){
-	true
-}
-_install(){
-	true
-}
 if [ "$BuildType" != "" ] ; then
 	info "Build Type found."
 elif [ -f "$WORKDIR/meson.build" ] ; then
