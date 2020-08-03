@@ -3,22 +3,23 @@ if [ "$(ls -F $WORKDIR | grep \/$ | wc -l)" == "1" ] ; then
 	export WORKDIR="$WORKDIR/$(ls -F $WORKDIR | grep \/$)"
 fi
 info "Single source detected: new workdir => $WORKDIR"
-
-if fn_exists "_setup" && fn_exists "_build" && fn_exists "_install" ; then
-	msg ">>Function checking done"
-else
-	if [ "$BuildType" != "" ] ; then
-		info "Build Type found."
-	elif [ -f "$WORKDIR/meson.build" ] ; then
-		BuildType="meson"
-	elif [ -f "$WORKDIR/CMakeLists.txt" ] ; then
-		BuildType="cmake"
-	elif [ -f "$WORKDIR/setup.py" ] ; then
-		BuildType="python"
-	elif [ -f "$WORKDIR/configure" ] ; then
-		BuildType="autotools"
-	else
-		err "Some functions missing or unibuild could not detected build type!!!"
-		exit 127
-	fi
+_setup(){
+	true
+}
+_build(){
+	true
+}
+_install(){
+	true
+}
+if [ "$BuildType" != "" ] ; then
+	info "Build Type found."
+elif [ -f "$WORKDIR/meson.build" ] ; then
+	BuildType="meson"
+elif [ -f "$WORKDIR/CMakeLists.txt" ] ; then
+	BuildType="cmake"
+elif [ -f "$WORKDIR/setup.py" ] ; then
+	BuildType="python"
+elif [ -f "$WORKDIR/configure" ] ; then
+	BuildType="autotools"
 fi
