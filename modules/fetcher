@@ -2,7 +2,14 @@
 _fetch(){
 cd $WORKDIR
 for src in ${source[@]} ; do
-	if echo "$src" | grep "git://" &>/dev/null ; then
+	if [ -f $CURDIR/$src ] ; then
+		info "Copying: $src"
+		cp -prfv $CURDIR/$src $WORKDIR/
+	elif [ -d $CURDIR/$src ] ; then
+		info "Copying: $src"
+		cp -prfv $CURDIR/$src $WORKDIR/
+
+	elif echo "$src" | grep "git://" &>/dev/null ; then
 		srcloc=$(echo $src | sed "s|^.*git://|git://|g")
 		srcname=$(echo $src | sed "s|::git://.*$||g")
 		echo $srcloc $srcname
@@ -19,9 +26,6 @@ for src in ${source[@]} ; do
 		info "Downloading: $srcloc"
 		wget -c $srcloc -O $srcname
 		echo $srcname | grep ".tar.*" && tar -xf $srcname
-	elif [ -f $CURDIR/$src ] ; then
-		info "Copying: $src"
-		cp -prfv $CURDIR/$src $WORKDIR/
 	else
 		info "Downloading: $srcloc"
 		wget -c $src -O $(basename $src) || true
