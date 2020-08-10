@@ -22,7 +22,7 @@ for src in ${source[@]} ; do
 		fi
 	elif echo "$src" | grep "^git+" &>/dev/null ; then
 		srcloc=$(echo $src | sed "s|^git+||g" | sed "s/::.*//g")
-		branch=$(echo $src | sed "s|^.*::||g")
+		echo $src | grep "::" &>/dev/null && branch=$(echo $src | sed "s|^.*::||g")
 		echo $srcloc $srcname $branch
 		info "Clonning: $srcloc"
 		if [ "$branch" == "" ] ; then

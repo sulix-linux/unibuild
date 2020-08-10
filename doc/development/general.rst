@@ -1,8 +1,8 @@
 MODDIR
 =====
-Include order : *api -> modules -> unibuild file -> host -> target -> hooks*
+Include order : *api -> modules -> unibuild file -> host -> target -> hooks* All imports are alphabeticaly.
 
-Moddir included unibuild **modules**, **api**,  **hooks**,  **target** and **host** directories.
+Moddir contains unibuild **modules**, **api**,  **hooks**,  **target** and **host** directories.
 
 
 Modules
