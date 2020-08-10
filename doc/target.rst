@@ -2,7 +2,8 @@ Create new target
 =================
 
 Target functions must be within **target/** directory in source code.
-for adding automaticaly detecting target you should edit **modules/autotarget** file.
+For adding automaticaly detecting target you should edit **modules/autotarget** file.
+
 Target functions override unibuild files functions so you don't have to define unibuild function or variable in target file.
 We need two functions. **_create_metadata** and **_package**. You can create helper functions.
 Target functions run in **$PKGDIR**. 
