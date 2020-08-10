@@ -1,7 +1,7 @@
 #!/bin/bash
 _get_build_deps(){
 	needed=""
-	for i in ${builddepends}
+	for i in ${builddepends[@]}
 	do
 		[ -f /info/$i ] || needed="$needed $i"
 	done

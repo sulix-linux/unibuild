@@ -1,4 +1,5 @@
 #!/bin/bash
+[ -f $HOME/.unibuildrc ] && source $HOME/.unibuildrc
 [ "$MODDIR" == "" ] && export MODDIR=/usr/lib/unibuild/modules
 set -e
 for api in $(ls $MODDIR/../api | sort) ; do
