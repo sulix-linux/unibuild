@@ -1,7 +1,6 @@
 #!/bin/bash
 mkdir -p  $DESTDIR/usr/lib/unibuild || true
 mkdir -p  $DESTDIR/usr/bin || true
-[ -f unibuild.sh ] && cp -prfv * $DESTDIR/usr/lib/unibuild
-rm -f $DESTDIR/usr/lib/unibuild/build.sh
+cp -prfv src/* $DESTDIR/usr/lib/unibuild
 chmod +x -R $DESTDIR/usr/lib/unibuild/*
-ln -s $DESTDIR/usr/lib/unibuild/unibuild.sh /usr/bin/unibuild 2>/dev/null || true
+mv $DESTDIR/usr/lib/unibuild/unibuild.sh $DESTDIR/usr/bin/unibuild

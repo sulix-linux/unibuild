@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source=src/
+
+name=unibuild
+version=0.0
+partof=devel
+arch=all
+priority=optional
+description="""Evrensel paketleme aracı
+ Unibuild kullanarak kodlarınızı daha basit bir şekilde paketleyebilirsiniz."""
+
+_install(){
+	find $WORKDIR/ -type f | xargs chmod 755
+	mkdir -p $INSTALLDIR/usr/bin
+	mkdir -p $INSTALLDIR/usr/lib/unibuild
+	mv $WORKDIR/unibuild.sh $INSTALLDIR/usr/bin/unibuild
+	mv $WORKDIR/* $INSTALLDIR/usr/lib/unibuild/
+}
