@@ -1,0 +1,39 @@
+#!/bin/bash
+
+_write_metadata(){
+echo -e "Package: $name"
+#echo -e "Source: $source"
+echo -e "Version: $version"
+echo -e "Section: $partof"
+echo -e "Priority: $priority"
+echo -e "Architecture: $arch"
+echo -e "Maintainer: $maintainer <$email>"
+echo -e "Installed-Size: $(du -s diyorki | cut -f 1)"
+echo -ne "Depends:"
+for dep in ${depends[@]}
+do
+	echo -ne " $dep,"
+done | sed "s/,$//g" ; echo
+echo -e "Homepage: $homepage"
+echo -e "Date: $(date +'%d/%m/%Y-%H:%M:%S')"
+echo -e "Description: $description\n"
+}
+
+_create_metadata(){
+	# Eğer kullanıcı debian control dosyası ve diğer doyaların olduğu bir dizin
+	# yani $debdir tanımlarsa o dosyaları kullanırız, tanımlamazsa _write_metadata işlevini.
+	if [ $CURDIR/$debdir && -d $debdir ]; then
+		cp -prfv $debdir/* $PKGDIR/
+	else
+		_write_metadata > $PKGDIR/control
+	fi
+	find $INSTALLDIR/ -type d | xargs chmod 755
+	find $INSTALLDIR/ -type f -exec md5sum {} \; > $PKGDIR/md5sums
+}
+_package(){
+	mkdir -p $INSTALLDIR/DEBIAN
+	cp -prfv $PKGDIR/* $INSTALLDIR/DEBIAN/
+	fakeroot dpkg-deb --build $INSTALLDIR/
+	mv $INSTALLDIR/../install.deb $CURDIR/$name\_$version\_$arch.deb
+	info ">>> $INSTALLDIR/../install.deb -\> $CURDIR/$name\_$version\_$arch.deb konumuna taşınıyor."
+}
