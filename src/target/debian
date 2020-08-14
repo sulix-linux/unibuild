@@ -30,10 +30,14 @@ _create_metadata(){
 	find $INSTALLDIR/ -type d | xargs chmod 755
 	find $INSTALLDIR/ -type f -exec md5sum {} \; > $PKGDIR/md5sums
 }
+
 _package(){
-	mkdir -p $INSTALLDIR/DEBIAN
-	cp -prfv $PKGDIR/* $INSTALLDIR/DEBIAN/
-	fakeroot dpkg-deb --build $INSTALLDIR/
-	mv $INSTALLDIR/../install.deb $CURDIR/$name\_$version\_$arch.deb
-	info ">>> $INSTALLDIR/../install.deb -\> $CURDIR/$name\_$version\_$arch.deb konumuna taşınıyor."
-}
+ 	cd $INSTALLDIR
+ 	tar --gzip -cvf $PKGDIR/data.tar.gz ./*
+ 	cd $PKGDIR/DEBIAN
+ 	tar --gzip -cvf $PKGDIR/control.tar.gz *
+ 	echo "2.0" > $PKGDIR/debian-binary
+ 	cd $PKGDIR
+ 	ar r "$CURDIR/${name}_${arch}_${version}.deb" debian-binary control.tar.gz data.tar.gz
+} 
+
