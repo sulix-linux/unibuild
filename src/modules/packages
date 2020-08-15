@@ -4,11 +4,11 @@ export version="1.0"
 export release="1"
 export homepage="https://example.github.io"
 export url="https://gitlab.com/example"
+export priority="unknown"
 export date="01.01.1970"
 if [ -z $maintainer ]; then 
 	export maintainer="packager"
 fi
-# Bu kontrolün sebebi önceden tanımlanmış email ve maintainer değişkenlerinin kaybedilmemesidir.
 if [ -z $email ]; then
 	export email="packager@package.org"
 fi
