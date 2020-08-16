@@ -35,6 +35,8 @@ for example:
 
 .. code-block:: shell
 
-	cp -prfv $INSTALLDIR/* $PKGDIR/
-	cd $PKGDIR
-	tar -cf $CURDIR/$name-$version.tar *
+	_package(){
+		cp -prfv $INSTALLDIR/* $PKGDIR/
+		cd $PKGDIR
+		tar -cf $CURDIR/$name-$version.tar *
+	}
