@@ -8,3 +8,6 @@ is_target(){
 is_host(){
 	return [ "$HOST" == "$1" ]
 }
+notnull(){
+	 return [ "$1" == "" ] 
+}

@@ -4,16 +4,17 @@ _write_metadata(){
 echo -e "Package: $name"
 #echo -e "Source: $source"
 echo -e "Version: $version"
-echo -e "Section: $partof"
-echo -e "Priority: $priority"
+notnull $partof  && echo -e "Section: $partof"
+notnull $priority && echo -e "Priority: $priority"
 echo -e "Architecture: $arch"
 echo -e "Maintainer: $maintainer <$email>"
 echo -e "Installed-Size: $(du -s $INSTALLDIR | cut -f 1)"
-echo -ne "Depends:"
+notnull "$depends" && { echo -ne "Depends:"
 for dep in ${depends[@]}
 do
 	echo -ne " $dep,"
 done | sed "s/,$//g" ; echo
+}
 echo -e "Homepage: $homepage"
 echo -e "Date: $(date +'%d/%m/%Y-%H:%M:%S')"
 echo -e "Description: $description\n"
