@@ -1,6 +1,6 @@
 #!/bin/bash
 export CURDIR=$(pwd)
-export BUILDDIR=$(mktemp -d)
+[ "$BUILDDIR" == "" ] &&  export BUILDDIR=$(mktemp -d)
 export WORKDIR=$BUILDDIR/work
 export INSTALLDIR=$BUILDDIR/install
 export DESTDIR=$INSTALLDIR
