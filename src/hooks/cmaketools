@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ "$BuildType" == "cmake" ] ; then
 	_setup(){
-		cmake_configure $CONFIG_OPTIONS
+		cmake_configure ${CONFIG_OPTIONS[@]}
 	}
 
 	_build(){

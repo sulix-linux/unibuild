@@ -1,0 +1,13 @@
+#!/bin/bash
+info "Unibuild api version = ${unibuild_api_version}"
+if [ ${unibuild_api_version} -lt ${minver} ] ; then
+	warn "Required minimum version = ${minver}"
+	err "Please update unibuild."
+	exit 1
+fi
+if [ ${unibuild_api_version} -gt ${maxver} ] ; then
+	warn "Required maximum version = ${maxver}"
+	err "Building aborted."
+	exit 1
+fi
+

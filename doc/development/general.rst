@@ -13,6 +13,8 @@ Api
 ^^^
 Unibuild helper function defined here. Included before unibuild files. All functions are optional. Modules can use api functions.
 
+You can define **minver** value for required minimum unibuild api version and you can define **maxver** value for required maximum unibuild api version. Default value is current version.
+
 Hooks
 ^^^^
 Hook functions included after unibuild files so override unibuild files. you don't have to define unibuild function or variable in here. All hook functions are optional.

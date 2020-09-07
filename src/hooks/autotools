@@ -4,7 +4,7 @@ if [ "$BuildType" == "autotools" ] ; then
 		if [ -f "./autogen.sh" ] ; then
 			NOCONFIGURE=1 ./autogen.sh
 		fi
-		conf $CONFIG_OPTIONS
+		conf ${CONFIG_OPTIONS[@]}
 	}
 
 	_build(){

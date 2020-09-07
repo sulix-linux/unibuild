@@ -1,4 +1,5 @@
 #!/bin/bash
+declare -r unibuild_api_version=1
 declare -r inittime=$(date +%s%3N)
 [ -f $HOME/.unibuildrc ] && source $HOME/.unibuildrc
 [ "$MODDIR" == "" ] && export MODDIR=/usr/lib/unibuild/modules

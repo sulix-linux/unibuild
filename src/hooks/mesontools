@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ "$BuildType" == "meson" ] ; then
 	_setup(){
-		unibuild-meson build $CONFIG_OPTIONS
+		unibuild-meson build ${CONFIG_OPTIONS[@]}
 	}
 
 	_build(){
