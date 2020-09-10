@@ -1,0 +1,12 @@
+#!/bin/bash
+_get_build_deps(){
+	needed=""
+	for i in ${builddepends[@]}
+	do
+                [ -f /info/$i ] || needed="$needed $i"
+        done	
+	if [ "$needed" != "" ] ; then
+	    err "Missing: $needed"
+	    su -c "pacman -S $needed" || exit 1
+	fi
+}
