@@ -4,6 +4,8 @@ if [ "$TARGET" == "" ] ; then
 		export TARGET=debian
 	elif [ -d /var/lib/inary ] ; then
 		export TARGET=inary
+	elif [ -d /var/lib/pacman ] ; then
+		export TARGET=arch
 	else
 		export TARGET=default
 	fi
@@ -17,6 +19,10 @@ if [ "$TARGET" == "debian" ] ; then
 		[ "$(uname -m)" == "armhf" ] && arch="arm"  || true
 	fi
 elif [ "$TARGET" == "inary" ] ; then
+	if [ "$arch" == "" ] ; then
+		arch="$(uname -m)"
+	fi
+elif [ "$TARGET" == "arch" ] ; then
 	if [ "$arch" == "" ] ; then
 		arch="$(uname -m)"
 	fi

@@ -4,6 +4,8 @@ if [ "$HOST" == "" ] ; then
 		export HOST=debian
 	elif [ -d /var/lib/inary ] ; then
 		export HOST=inary
+	elif [ -d /var/lib/pacman ] ; then
+		export HOST=arch
 	else
 		export HOST=default
 	fi
