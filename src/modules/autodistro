@@ -8,7 +8,7 @@ elif [ -d /var/lib/dpkg/ ] ; then
 elif [ -d /var/lib/inary ] ; then
 	export DISTRO="Sulin"
 elif [ -d /var/lib/pacman ] ; then
-	export DISTRO="Arch Linux"
+	export DISTRO="Arch"
 else
 	export DISTRO="Unknown"
 fi
