@@ -1,5 +1,8 @@
 #!/bin/bash
-if [ "$(ls -F $WORKDIR | grep \/$ | wc -l)" == "1" ] ; then
-	export WORKDIR="$WORKDIR/$(ls -F $WORKDIR | grep \/$)"
+if [ "$singlesource" == "true" ] ; then
+
+	if [ "$(ls -F $WORKDIR | grep \/$ | wc -l)" == "1" ] ; then
+		export WORKDIR="$WORKDIR/$(ls -F $WORKDIR | grep \/$)"
+	fi
+	info "Single source detected: new workdir => $WORKDIR"
 fi
-info "Single source detected: new workdir => $WORKDIR"

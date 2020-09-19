@@ -7,3 +7,4 @@ export DESTDIR=$INSTALLDIR
 export PKGDIR=$BUILDDIR/package
 mkdir -p $WORKDIR $PKGDIR $INSTALLDIR
 info "Build Directory=$BUILDDIR"
+export singlesource=true

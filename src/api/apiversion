@@ -1,2 +1,3 @@
+#!/bin/bash
 export minver=${unibuild_api_version}
 export maxver=${unibuild_api_version}

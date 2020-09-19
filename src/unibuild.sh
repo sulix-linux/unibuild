@@ -1,5 +1,5 @@
 #!/bin/bash
-declare -r unibuild_api_version=1
+declare -r unibuild_api_version=2
 declare -r inittime=$(date +%s%3N)
 [ -f $HOME/.unibuildrc ] && source $HOME/.unibuildrc
 [ "$MODDIR" == "" ] && export MODDIR=/usr/lib/unibuild/modules
@@ -50,23 +50,33 @@ if fn_exists "_build" ; then
 	_build
 fi
 declare -r buildtime=$(date +%s%3N)
-
-if fn_exists "_install" ; then
-	cd $WORKDIR
-	msg ">>> Running install function"
-	_install
-fi
+[ "$PKGS" == "" ] && PKGS=$name
+for package in ${PKGS[@]} ; do
+	export PKGDIR=$BUILDDIR/$package/package
+	export INSTALLDIR=$BUILDDIR/$package/install
+	mkdir -p $PKGDIR $INSTALLDIR
+	if fn_exists "_install" ; then
+		cd $WORKDIR
+		msg ">>> Running install function for $package"
+		_install
+	fi
+done
 declare -r installtime=$(date +%s%3N)
-
-cd $WORKDIR
-msg ">>> Generating metadata"
-_create_metadata
-cd $WORKDIR
-msg ">>> Creating package"
-_package
-msg ">>> Clearing workdir"
+for package in ${PKGS[@]} ; do
+	export name=$package
+	export PKGDIR=$BUILDDIR/$package/package
+	export INSTALLDIR=$BUILDDIR/$package/install
+	mkdir -p $PKGDIR $INSTALLDIR
+	cd $WORKDIR
+	msg ">>> Generating metadata"
+	_create_metadata
+	cd $WORKDIR
+	msg ">>> Creating package"
+	_package
+done
 declare -r packagetime=$(date +%s%3N)
 
+msg ">>> Clearing workdir"
 rm -rf $WORKDIR
 info ">>> Done"
 
