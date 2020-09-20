@@ -1,10 +1,7 @@
 #!/bin/bash
-export CURDIR=$(pwd)
+declare -r CURDIR="$(pwd)"
 [ "$BUILDDIR" == "" ] &&  export BUILDDIR=$(mktemp -d)
 export WORKDIR=$BUILDDIR/work
-export INSTALLDIR=$BUILDDIR/install
-export DESTDIR=$INSTALLDIR
-export PKGDIR=$BUILDDIR/package
-mkdir -p $WORKDIR $PKGDIR $INSTALLDIR
+mkdir -p $WORKDIR
 info "Build Directory=$BUILDDIR"
 export singlesource=true

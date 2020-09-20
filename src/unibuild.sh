@@ -54,6 +54,7 @@ declare -r buildtime=$(date +%s%3N)
 for package in ${PKGS[@]} ; do
 	export PKGDIR=$BUILDDIR/$package/package
 	export INSTALLDIR=$BUILDDIR/$package/install
+	export DESTDIR=$INSTALLDIR
 	mkdir -p $PKGDIR $INSTALLDIR
 	if fn_exists "_install" ; then
 		cd $WORKDIR
