@@ -140,6 +140,7 @@ Unibuild change **package** value when run **_install** function.
 You can split package like this:
 
 .. code-block:: shell
+
 	PKGS=("main" "splited")
 	_install(){
 		if is_pkg "splited" ; then
