@@ -131,20 +131,23 @@ Unibuild supported different source types. All known source types:
 Split package
 ^^^^^^^^^^^^^
 
-Unibuild uses **PKGS** array for getting package names. We have main package and splited package. Main package is first PKGS array item. If you did not define this aray unibuild use **name** value as single package name.
+Unibuild uses **PKGS** array for getting package names. We have *main* package and *splited* packages. Main package is first **PKGS** array item. If you did not define this aray unibuild use **name** value as single package name.
 
-Unibuild define and create **INSTALLDIR** and **PKGDIR** directories for every splited and main packages and run **_install** functions.
+Unibuild define and create **INSTALLDIR** and **PKGDIR** directories for every *splited* and *main* packages and run **_install** functions.
 
 Unibuild change **package** value when run **_install** function.
 
 You can split package like this:
 
 .. code-block:: shell
-
-	if is_pkg "splited_package_name" ; then
-		takedir "main_package_name" "/path/to/stuff"
-    		return
-	fi
+	PKGS=("main" "splited")
+	_install(){
+		if is_pkg "splited" ; then
+			takedir "main" "/path/to/stuff"
+    			return
+		fi
+		make install DESTDIR=$INSTALLDIR
+	}
 	
 **takedir** function move files or directories from main package.
 
