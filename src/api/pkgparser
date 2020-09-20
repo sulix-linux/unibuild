@@ -1,0 +1,8 @@
+#!/bin/bash
+is_pkg(){
+	[ "$package" == "$1" ]
+}
+takedir(){
+	mkdir -p $INSTALLDIR/$(dirname $2)
+	mv $INSTALLDIR/../../$1/install/$2/ $INSTALLDIR/$2
+}
