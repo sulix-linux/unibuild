@@ -79,7 +79,7 @@ Function calling order: _setup => _build => _install
 
 Build target and host
 ^^^^^^^^^^^^^^^^^^^^^
-Unibuild is universali builder so supported most of distribution. You can define **TARGET** and **HOST** variables.
+Unibuild is universal builder so supported most of distribution. You can define **TARGET** and **HOST** variables.
 
 ========    =================================================
 VARIABLE    DESCRIPION
@@ -128,3 +128,26 @@ Unibuild supported different source types. All known source types:
 
 5. https://xxxxxx
 
+Split package
+^^^^^^^^^^^^^
+
+Unibuild uses **PKGS** array for getting package names. We have main package and splited package. Main package is first PKGS array item. If you did not define this aray unibuild use **name** value as single package name.
+
+Unibuild define and create **INSTALLDIR** and **PKGDIR** directories for every splited and main packages and run **_install** functions.
+
+Unibuild change **package** value when run **_install** function.
+
+You can split package like this:
+
+.. code-block:: shell
+
+	if is_pkg "splited_package_name" ; then
+		takedir "main_package_name" "/path/to/stuff"
+    		return
+	fi
+	
+**takedir** function move files or directories from main package.
+
+**is_package** function return true if current package is splited package.
+
+**return** for stop function block 
