@@ -97,23 +97,33 @@ Unibuild spec variables and description avaiable here:
 ========     ============    ========================================================     =======
 OPTIONAL     VARIABLE        DESCRIPION                                                   Type
 ========     ============    ========================================================     =======
-no           name            Package name.                                                String
-no           version         Package version. Only can use [0-9] or . or -                String
-**yes**      release         Package release. Used by inary.                              Integer
-no           source          Package source code url or path.                             Array
-**yes**      executable      Package main executable name. Used by appimage               String
 no           description     Package description.                                         String
-no           summary         Package summary.                                             String
-**yes**      builddepends    Package names that required by compiling.                    Array
-**yes**      depends         Package runtime dependencies.                                Array
 no           license         Source code license.                                         String
-**yes**      partof          Package section or component name.                           String
-**yes**      categories      Appilcation categories. Used by appimage                     String
-**yes**      icon            Application icon name or path. Used by appimage              String
+no           name            Package name.                                                String
+no           source          Package source code url or path.                             Array
+no           summary         Package summary.                                             String
+no           version         Package version. Only can use [0-9] or . or -                String
 **yes**      arch            Package architecture. if dont define, auto detected.         String
-**yes**      maintainer      Package maintainer name.                                     String
+**yes**      backup          Package backup names.                                        Array
+**yes**      builddepends    Package names that required by compiling.                    Array
+**yes**      categories      Appilcation categories. Used by appimage                     String
+**yes**      checkdepends    Package check dependencies.                                  Array 
+**yes**      conflicts       Package conflict names.                                      Array
+**yes**      depends         Package runtime dependencies.                                Array
 **yes**      email           Packager email.                                              String
+**yes**      executable      Package main executable name. Used by appimage               String
+**yes**      groups          Package group names.                                         Array
+**yes**      homepage        Project homepage.                                            String
+**yes**      icon            Application icon name or path. Used by appimage              String
 **yes**      isa             Package type. Used by inary.                                 Array
+**yes**      maintainer      Package maintainer name.                                     String
+**yes**      optdepends      Package optional dependencies.                               Array
+**yes**      partof          Package section or component name.                           String
+**yes**      PKGS            Main and splited package names list.                         Array
+**yes**      priority        Package priority.                                            String
+**yes**      provides        Package provide names.                                       Array
+**yes**      release         Package release. Used by inary.                              Integer
+**yes**      replaces        Package replace names.                                       Array
 ========     ============    ========================================================     =======
 
 Unibuild supported different source types. All known source types:
@@ -131,7 +141,7 @@ Unibuild supported different source types. All known source types:
 Split package
 ^^^^^^^^^^^^^
 
-Unibuild uses **PKGS** array for getting package names. We have *main* package and *splited* packages. Main package is first **PKGS** array item. If you did not define this aray unibuild use **name** value as single package name.
+Unibuild uses **PKGS** array for getting package names. We have *main* package and *splited* packages. Main package is first **PKGS** array item. If you did not define this aray unibuild use **name** value main package name and do not splite.
 
 Unibuild define and create **INSTALLDIR** and **PKGDIR** directories for every *splited* and *main* packages and run **_install** functions.
 
