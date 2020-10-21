@@ -10,7 +10,7 @@ done
 for mod in $(ls $MODDIR) ; do
 	source $MODDIR/$mod
 done
-if [ -f "$1" ] ; then
+if [ -f "$1" ] || [ "$#" == "0" ] ; then
 	source <(cat $1)
 elif echo "$1" | grep "^.*://" &>/dev/null ; then
 	source <(curl $1)
