@@ -33,12 +33,17 @@ _create_metadata(){
 }
 
 _package(){
- 	cd $INSTALLDIR
- 	tar --gzip -cvf $PKGDIR/data.tar.gz ./*
- 	cd $PKGDIR/DEBIAN
- 	tar --gzip -cvf $PKGDIR/control.tar.gz *
- 	echo "2.0" > $PKGDIR/debian-binary
- 	cd $PKGDIR
- 	ar r "$CURDIR/${name}_${arch}_${version}.deb" debian-binary control.tar.gz data.tar.gz
+	if [ -f /var/lib/dpkg/status ] ; then
+		cp -prf $INSTALLDIR/* $PKGDIR/
+		dpkg -b $PKGDIR "$CURDIR/${name}_${arch}_${version}.deb"
+	else
+	 	cd $INSTALLDIR
+	 	tar --xz -cvf $PKGDIR/data.tar.xz ./*
+	 	cd $PKGDIR/DEBIAN
+	 	tar --xz -cvf $PKGDIR/control.tar.xz *
+	 	echo "2.0" > $PKGDIR/debian-binary
+	 	cd $PKGDIR
+	 	ar r "$CURDIR/${name}_${arch}_${version}.deb" debian-binary control.tar.xz data.tar.xz
+	fi
 } 
 
