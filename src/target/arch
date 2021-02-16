@@ -76,12 +76,18 @@ __write_buildinfo() {
 	write_kv_pair "installed" "${pkginfos_parsed[@]}"
 }
 
+__create_install_script() {
+    if [ -f "$CURDIR/$install" ]; then
+        cat $CURDIR/$install >> $PKGDIR/.INSTALL
+    fi
+}
+
 
 
 _create_metadata(){
 	__write_pkginfo >> $PKGDIR/.PKGINFO
 	__write_buildinfo >> $PKGDIR/.BUILDINFO
-	
+	__create_install_script
 }
 
 _package(){
@@ -91,5 +97,10 @@ _package(){
 	list_package_files | LANG=C bsdtar -cnf - --format=mtree \
 		--options='!all,use-set,type,uid,gid,mode,time,size,md5,sha256,link' \
 		--null --files-from - --exclude .MTREE | gzip -c -f -n > .MTREE
-	tar --xz -cf $CURDIR/$name-$version-$release.pkg.tar.xz * .PKGINFO .BUILDINFO .MTREE
+
+	if [ -f "$PKGDIR/.INSTALL" ]; then
+        tar --xz -cf $CURDIR/$name-$version-$release.pkg.tar.xz * .PKGINFO .BUILDINFO .MTREE .INSTALL
+    else
+        tar --xz -cf $CURDIR/$name-$version-$release.pkg.tar.xz * .PKGINFO .BUILDINFO .MTREE
+    fi
 }
