@@ -1,6 +1,6 @@
 Building with unibuild
 ======================
-**Unibuild** need a build spec. Build spec must be bash script. *name* *version* *release* *summary* *description* variables and *_setup* *_build* *_install* functions uses. For example:
+**Unibuild** need a build spec. Build spec must be bash script. *name* *version* *release* *summary* *description* variables and *_setup* *_build* *_check* *_install* functions uses. For example:
 
 .. code-block:: shell
 
@@ -75,7 +75,7 @@ This example uses autotools for compiling. autotools define build functions look
 	
 The gnu bash source code has ./configure script so if you dont define build functions, unibuild detect and set **BuildType** variable.
 
-Function calling order: _setup => _build => _install
+Function calling order: _setup => _build => _check => _install
 
 Build target and host
 ^^^^^^^^^^^^^^^^^^^^^

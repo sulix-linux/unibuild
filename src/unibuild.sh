@@ -18,19 +18,24 @@ else
 	err "Source not detected or not supported."
 	exit 1
 fi
+fail_message() {
+	err "$@"
+	exit 1
+}
+
 source $MODDIR/../target/$TARGET
 source $MODDIR/../host/$HOST
 
 declare -r begintime=$(date +%s%3N)
 
 msg ">>> Checking dependencies"
-_get_build_deps
+_get_build_deps || warn "Failed to check dependencies."
 declare -r checktime=$(date +%s%3N)
 
 
 cd $BUILDDIR
 msg ">>> Getting sources"
-_fetch
+_fetch || fail_message "Failed to get sources."
 declare -r fetchtime=$(date +%s%3N)
 
 msg ">>> Running hooks"
@@ -40,16 +45,24 @@ done
 if fn_exists "_setup" ; then
 	cd $WORKDIR
 	msg ">>> Running setup function"
-	_setup
+	_setup || fail_message "Failed to run setup function."
 fi
 declare -r setuptime=$(date +%s%3N)
 
 if fn_exists "_build" ; then
 	cd $WORKDIR
 	msg ">>> Running build function"
-	_build
+	_build || fail_message "Failed to run build function."
 fi
 declare -r buildtime=$(date +%s%3N)
+
+if fn_exists "_check" ; then
+	cd $WORKDIR
+	msg ">>> Running check function"
+	_build || warn "Failed to run check function."
+fi
+declare -r buildchecktime=$(date +%s%3N)
+
 [ "$PKGS" == "" ] && PKGS=$name
 for package in ${PKGS[@]} ; do
 	export PKGDIR=$BUILDDIR/$package/package
@@ -59,7 +72,7 @@ for package in ${PKGS[@]} ; do
 	if fn_exists "_install" ; then
 		cd $WORKDIR
 		msg ">>> Running install function for $package"
-		_install
+		_install || fail_message "Failed to run install function for $package"
 	fi
 done
 declare -r installtime=$(date +%s%3N)
@@ -87,6 +100,7 @@ info "    Package Checking:   $(($checktime-$begintime))"
 info "    Source fetching:    $(($fetchtime-$checktime))"
 info "    Setup functions:    $(($setuptime-$fetchtime))"
 info "    Source Building:    $(($buildtime-$setuptime))"
-info "    Source installing:  $(($installtime-$buildtime))"
+info "    Build Checking:     $(($buildchecktime-$buildtime))"
+info "    Source installing:  $(($installtime-$buildchecktime))"
 info "    Package generating: $(($packagetime-$installtime))"
 info "    Total time:         $(($packagetime-$inittime))"
