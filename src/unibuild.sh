@@ -1,5 +1,10 @@
 #!/bin/bash
-declare -r unibuild_api_version=2
+$(env | cut -f 1 -d '=' | sed "s/^/unset /")
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export USER=unibuild
+export HOME=$(mktemp -d)
+export SHELL=/bin/bash
+declare -r unibuild_api_version=3
 declare -r inittime=$(date +%s%3N)
 [ -f $HOME/.unibuildrc ] && source $HOME/.unibuildrc
 [ "$MODDIR" == "" ] && export MODDIR=/usr/lib/unibuild/modules
