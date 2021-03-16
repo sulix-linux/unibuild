@@ -1,5 +1,5 @@
 #!/bin/bash
-$(env | cut -f 1 -d '=' | sed "s/^/unset /")
+$(env | cut -f 1 -d '=' | grep -v "TARGET" | grep -v "HOST" | grep -v "DISTRO" | sed "s/^/unset /")
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 export USER=unibuild
 export HOME=$(mktemp -d)
