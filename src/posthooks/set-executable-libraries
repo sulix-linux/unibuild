@@ -1,0 +1,11 @@
+#!/bin/bash
+[ "$PKGS" == "" ] && PKGS=$name
+for package in ${PKGS[@]} ; do
+	export INSTALLDIR=$BUILDDIR/$package/install
+	find $INSTALLDIR -type f | grep "*.so$" | while read line ; do
+		if [ -f $line ] ; then
+			msg "Library detected: $(basename "$line")"
+			chmod +x $line
+		fi
+	done
+done

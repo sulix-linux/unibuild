@@ -1,0 +1,11 @@
+#!/bin/bash
+import_source(){
+	if [ -f "$1" ] || [ "$#" == "0" ] ; then
+		source <(cat $1)
+	elif echo "$1" | grep "^.*://" &>/dev/null ; then
+		source <(curl $1)
+	else
+		err "Source not detected or not supported."
+		exit 1
+	fi
+}

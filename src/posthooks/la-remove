@@ -1,0 +1,9 @@
+#!/bin/bash
+[ "$PKGS" == "" ] && PKGS=$name
+for package in ${PKGS[@]} ; do
+	export INSTALLDIR=$BUILDDIR/$package/install
+	find $INSTALLDIR -type f | grep "*.la" | while read line ; do
+		msg "Removed: $line"
+		rm -f $line
+	done
+done

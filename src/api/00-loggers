@@ -12,4 +12,7 @@ err(){
 info(){
 	echo -e "\033[34;1m$*\033[;0m"
 }
-
+fail_message() {
+	err "$@"
+	exit 1
+}

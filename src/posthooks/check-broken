@@ -1,0 +1,6 @@
+#!/bin/bash
+[ "$PKGS" == "" ] && PKGS=$name
+for package in ${PKGS[@]} ; do
+	export INSTALLDIR=$BUILDDIR/$package/install
+	find -L $INSTALLDIR -type l | xargs echo "Broken:"
+done
