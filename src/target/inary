@@ -69,15 +69,15 @@ _package(){
 	echo -e "<Files>" > ../files.xml
 	find | sed "s|^\./||g" | while read line
 	do
-	if [ -f $line ] ; then
+	if [ -f "$line" ] ; then
 		echo -e "   <File>" >> ../files.xml
 	        echo -e "      <Path>$line</Path>" >> ../files.xml
         	echo -e "      <Type>data</Type>" >> ../files.xml
-        	echo -e "      <Size>$(du -b $line | awk '{print $1}')</Size>" >> ../files.xml
+        	echo -e "      <Size>"$(du -b "$INSTALLDIR/$line" | awk '{print $1}')"</Size>" >> ../files.xml
         	echo -e "      <Uid>0</Uid>" >> ../files.xml
         	echo -e "      <Gid>0</Gid>" >> ../files.xml
         	echo -e "      <Mode>0o755</Mode>" >> ../files.xml
-        	echo -e "      <Hash>$(sha1sum $line | awk '{print $1}')</Hash>" >> ../files.xml
+        	echo -e "      <Hash>"$(sha1sum "$INSTALLDIR/$line" | awk '{print $1}')"</Hash>" >> ../files.xml
         	echo -e "   </File>" >> ../files.xml
 	fi
 	done

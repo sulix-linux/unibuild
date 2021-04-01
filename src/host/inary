@@ -3,7 +3,7 @@ _get_build_deps(){
 	needed=""
 	for i in ${builddepends[@]}
 	do
-		ls /var/lib/inary/package/ | grep "^$i-[1-9]" &>/dev/null || needed="$needed $i"
+		ls /var/lib/inary/package/"$i"-[0-9]*  || needed="$needed $i"
 	done
 	if [ "$needed" != "" ] ; then
 	    err "Missing: $needed"
