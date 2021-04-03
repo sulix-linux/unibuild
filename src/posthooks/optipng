@@ -1,8 +1,0 @@
-#!/bin/bash
-if which optipng &>/dev/null ; then
-	[ "$PKGS" == "" ] && PKGS=$name
-	for package in ${PKGS[@]} ; do
-		export INSTALLDIR=$BUILDDIR/$package/install
-		find $INSTALLDIR -type f | grep "*.png" | xargs optipng -o7
-	done
-fi
