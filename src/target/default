@@ -21,15 +21,22 @@ __write_remove(){
 _create_metadata(){
 	mkdir $PKGDIR/info/
 	echo "----begin----" >> $PKGDIR/info/$name
-	echo "Build date : $(date)" >> $PKGDIR/info/$name
+	echo "Build date: $(date)" >> $PKGDIR/info/$name
+	echo "Maintainer name: $maintainer" >> $PKGDIR/info/$name
+	echo "Maintainer email: $email" >> $PKGDIR/info/$name
 	echo "----info----" >> $PKGDIR/info/$name
 	echo "Name: $name" >> $PKGDIR/info/$name
 	echo "Version: $version" >> $PKGDIR/info/$name
 	echo "Summary: $summary" >> $PKGDIR/info/$name
 	echo "Description: $description" >> $PKGDIR/info/$name
+	echo "----dependencies----" >> $PKGDIR/info/$name
+	for dep in ${depends[@]}
+	do
+		echo "$dep" >> $PKGDIR/info/$name
+	done
 	echo "----files----" >> $PKGDIR/info/$name
 	cd $INSTALLDIR
-	find >> $PKGDIR/info/$name
+	find -type f | xargs md5sum >> $PKGDIR/info/$name
 	echo "----end----" >> $PKGDIR/info/$name
 	__write_remove >> $PKGDIR/info/$name.remove
 }
