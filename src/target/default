@@ -29,7 +29,7 @@ _create_metadata(){
 	echo "Version: $version" >> $PKGDIR/info/$name
 	echo "Summary: $summary" >> $PKGDIR/info/$name
 	echo "Description: $description" >> $PKGDIR/info/$name
-	echo "----dependencies----" >> $PKGDIR/info/$name
+	echo "----depends----" >> $PKGDIR/info/$name
 	for dep in ${depends[@]}
 	do
 		echo "$dep" >> $PKGDIR/info/$name
