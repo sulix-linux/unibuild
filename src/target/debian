@@ -9,12 +9,13 @@ notnull $priority && echo -e "Priority: $priority"
 echo -e "Architecture: $arch"
 echo -e "Maintainer: $maintainer <$email>"
 echo -e "Installed-Size: $(du -s $INSTALLDIR | cut -f 1)"
-notnull "$depends" && { echo -ne "Depends:"
-for dep in ${depends[@]}
-do
-	echo -ne " $dep,"
-done | sed "s/,$//g" ; echo
-}
+if [ "${#depends[@]}" -gt 0 ] ; then
+	echo -ne "Depends:"
+	for dep in ${depends[@]}
+	do
+		echo -ne " $dep,"
+	done | sed "s/,$//g" ; echo
+fi
 echo -e "Homepage: $homepage"
 echo -e "Date: $(date +'%d/%m/%Y-%H:%M:%S')"
 echo -e "Description: $description\n"

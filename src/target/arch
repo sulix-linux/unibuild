@@ -12,7 +12,7 @@ write_kv_pair() {
 
 	for val in "$@"; do
 		if [[ $val = *$'\n'* ]]; then
-			error "$(gettext "Invalid value for %s: %s")" "$key" "$val"
+			error "Invalid value for $key $val"
 			exit $E_PKGBUILD_ERROR
 		fi
 		printf "%s = %s\n" "$key" "$val"
