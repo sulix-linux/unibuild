@@ -1,4 +1,22 @@
 #!/bin/bash
+if [ "$UID" != "0" ] ; then
+    if which fakeroot &>/dev/null ; then
+        exec fakeroot $0 $@
+    else
+        echo "Fakeroot not found."
+        echo "Please install fakeroot or use root."
+        exit 1
+    fi
+else
+    if [ "$FAKEROOTKEY" == "" ] ; then
+        echo "Do you want to continue building with root user? [y/N]"
+        read -s -n 1 c
+        if [ "$c" != "Y" ] || [ $c != "y" ] ; then
+            echo "Operation canceled."
+            exit 1
+        fi
+    fi
+fi
 export UNIBUILDRC="$HOME/.unibuildrc"
 $(env | cut -f 1 -d '=' | grep -v "TARGET" | grep -v "UNIBUILDRC" | grep -v "HOST" | grep -v "DISTRO" | sed "s/^/unset /")
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
