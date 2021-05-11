@@ -17,7 +17,7 @@ export SHELL=/bin/bash
 declare -r unibuild_api_version=4
 declare -r inittime=$(date +%s%3N)
 [ -f "$UNIBUILDRC" ] && source "$UNIBUILDRC"
-[ "$MODDIR" == "" ] && export MODDIR=/usr/lib/unibuild/modules
+[ "$MODDIR" == "" ] && export MODDIR=@prefix@/lib/unibuild/modules
 set -e
 for api in $(ls $MODDIR/../api | sort) ; do
 	source $MODDIR/../api/$api
@@ -26,6 +26,7 @@ for mod in $(ls $MODDIR) ; do
 	source $MODDIR/$mod
 done
 import_source "$1"
+export unibuild_file=$1
 
 source $MODDIR/../target/$TARGET
 source $MODDIR/../host/$HOST
