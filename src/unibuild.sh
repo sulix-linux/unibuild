@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ "$UID" != "0" ] ; then
-    if which fakeroot &>/dev/null ; then
-        exec fakeroot $0 $@
+    if which unshare && which fakeroot &>/dev/null ; then
+        exec unshare -U -m --map-root-user fakeroot -- $0 $@
     else
         echo "Fakeroot not found."
         echo "Please install fakeroot or use root."
