@@ -29,8 +29,9 @@ _create_metadata(){
 	else
 		_write_metadata > $PKGDIR/DEBIAN/control
 	fi
-	find $INSTALLDIR/ -type d | xargs chmod 755
-	find $INSTALLDIR/ -type f -exec md5sum {} \; > $PKGDIR/md5sums
+        cd $INSTALLDIR/
+	find -type d | xargs chmod 755
+	find -type f -exec md5sum {} \; | sed "s|\./||g"> $PKGDIR/DEBIAN/md5sums
 }
 
 _package(){
