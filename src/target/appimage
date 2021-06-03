@@ -37,11 +37,11 @@ do
 	ldd $stuff | grep "=>" | awk '{print $3}' | while read line
 	do
 		if [ -f $line ] ; then
-			mkdir -p $PKGDIR/$line || true
-			rmdir $PKGDIR/$line || true
+			mkdir -p "$PKGDIR"/$line || true
+			rmdir "$PKGDIR"/$line || true
 			cat $line > $PKGDIR/$line || true
 			cat $(readlink -f $line) > $PKGDIR/$(readlink -f $line)
-			chmod +x $PKGDIR/$line
+			chmod +x "$PKGDIR/$line"
 		fi
 	done
 done
@@ -60,8 +60,8 @@ _package(){
 		wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-$(uname -m).AppImage -O ~/.appimagekit
 		chmod +x ~/.appimagekit
 	fi
-	cp -prfv $INSTALLDIR/* $PKGDIR/
+	cp -prfv "$INSTALLDIR"/* "$PKGDIR"/
 	[ "${PORTABLE}" == "true" ] && find $INSTALLDIR | copy_library &> /dev/null || true
 	cd $CURDIR
-	ARCH=$(uname -m) ~/.appimagekit $PKGDIR
+	ARCH=$(uname -m) ~/.appimagekit "$PKGDIR"
 }

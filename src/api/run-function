@@ -2,7 +2,7 @@
 run_function(){
 fnc="$1"
 	if fn_exists "_$fnc" ; then
-		cd $WORKDIR
+		cd "$WORKDIR"
 		msg ">>> Running $fnc function"
 		_$fnc || fail_message "Failed to run $fnc function."
 	fi

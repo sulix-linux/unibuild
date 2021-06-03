@@ -63,7 +63,7 @@ _create_metadata(){
 }
 
 _package(){
-	cd $INSTALLDIR
+	cd "$INSTALLDIR"
 	[ -f ../install.tar.xz ] && rm -f ../install.tar.xz
 	tar --xz -cf ../install.tar.xz *
 	echo -e "<Files>" > ../files.xml
@@ -84,9 +84,9 @@ _package(){
 	echo -e "</Files>" >> ../files.xml
 	mv ../files.xml $PKGDIR/files.xml
 	mv ../install.tar.xz $PKGDIR/install.tar.xz
-	cd $PKGDIR
+	cd "$PKGDIR"
 	export installtarhash="$(sha1sum install.tar.xz | awk '{print $1}')"
 	sed -i "s/@tarhash@/$installtarhash/g" metadata.xml
-	zip -r $CURDIR/$name-$version.inary *
+	zip -r "$CURDIR/$name-$version.inary" *
 
 }

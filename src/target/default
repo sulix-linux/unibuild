@@ -1,7 +1,7 @@
 #!/bin/bash
 
 __write_remove(){
-	cd $INSTALLDIR
+	cd "$INSTALLDIR"
 	find | sort | while read line
 	do
 		if [ -f $line ] ; then
@@ -35,14 +35,14 @@ _create_metadata(){
 		echo "$dep" >> $PKGDIR/info/$name
 	done
 	echo "----files----" >> $PKGDIR/info/$name
-	cd $INSTALLDIR
+	cd "$INSTALLDIR"
 	find -type f | xargs md5sum >> $PKGDIR/info/$name
 	echo "----end----" >> $PKGDIR/info/$name
 	__write_remove >> $PKGDIR/info/$name.remove
 }
 _package(){
-	cp -prfv $INSTALLDIR/* $PKGDIR/
-	cd $PKGDIR
-	tar -cf $CURDIR/$name-$version.tar *
+	cp -prfv "$INSTALLDIR"/* $PKGDIR/
+	cd "$PKGDIR"
+	tar -cf "$CURDIR"/$name-$version.tar *
 
 }

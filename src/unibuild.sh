@@ -38,7 +38,7 @@ _get_build_deps || warn "Failed to check dependencies."
 declare -r checktime=$(date +%s%3N)
 
 
-cd $BUILDDIR
+cd "$BUILDDIR"
 msg ">>> Getting sources"
 _fetch || fail_message "Failed to get sources."
 declare -r fetchtime=$(date +%s%3N)
@@ -65,7 +65,7 @@ for package in ${PKGS[@]} ; do
 	export DESTDIR=$INSTALLDIR
 	mkdir -p $PKGDIR $INSTALLDIR
 	if fn_exists "_install" ; then
-		cd $WORKDIR
+		cd "$WORKDIR"
 		msg ">>> Running install function for $package"
 		_install || fail_message "Failed to run install function for $package"
 	fi
@@ -81,17 +81,17 @@ for package in ${PKGS[@]} ; do
 	export PKGDIR=$BUILDDIR/$package/package
 	export INSTALLDIR=$BUILDDIR/$package/install
 	mkdir -p $PKGDIR $INSTALLDIR
-	cd $WORKDIR
+	cd "$WORKDIR"
 	msg ">>> Generating metadata"
 	_create_metadata
-	cd $WORKDIR
+	cd "$WORKDIR"
 	msg ">>> Creating package"
 	_package
 done
 declare -r packagetime=$(date +%s%3N)
 
 msg ">>> Clearing workdir"
-rm -rf $WORKDIR
+rm -rf "$WORKDIR"
 info ">>> Done"
 
 msg "Unibuild stats (milisec):"

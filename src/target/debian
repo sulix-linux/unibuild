@@ -23,28 +23,28 @@ echo -e "Description: $description\n"
 
 _create_metadata(){
 
-	mkdir -p $PKGDIR/DEBIAN
+	mkdir -p "$PKGDIR/DEBIAN"
 	if [ -d "$debdir" ]; then
 		cp -prfv $debdir/* $PKGDIR/DEBIAN
 	else
 		_write_metadata > $PKGDIR/DEBIAN/control
 	fi
-        cd $INSTALLDIR/
+        cd "$INSTALLDIR"
 	find -type d | xargs chmod 755
 	find -type f -exec md5sum {} \; | sed "s|\./||g"> $PKGDIR/DEBIAN/md5sums
 }
 
 _package(){
 	if [ -f /var/lib/dpkg/status ] ; then
-		cp -prf $INSTALLDIR/* $PKGDIR/
-		dpkg -b $PKGDIR "$CURDIR/${name}_${arch}_${version}.deb"
+		cp -prf "$INSTALLDIR"/* "$PKGDIR"/
+		dpkg -b "$PKGDIR" "$CURDIR/${name}_${arch}_${version}.deb"
 	else
-	 	cd $INSTALLDIR
-	 	tar --xz -cvf $PKGDIR/data.tar.xz ./*
-	 	cd $PKGDIR/DEBIAN
-	 	tar --xz -cvf $PKGDIR/control.tar.xz *
-	 	echo "2.0" > $PKGDIR/debian-binary
-	 	cd $PKGDIR
+	 	cd "$INSTALLDIR"
+	 	tar --xz -cvf "$PKGDIR"/data.tar.xz ./*
+	 	cd "$PKGDIR/DEBIAN"
+	 	tar --xz -cvf "$PKGDIR"/control.tar.xz *
+	 	echo "2.0" > "$PKGDIR"/debian-binary
+	 	cd "$PKGDIR"
 	 	ar r "$CURDIR/${name}_${arch}_${version}.deb" debian-binary control.tar.xz data.tar.xz
 	fi
 } 

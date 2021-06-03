@@ -1,6 +1,6 @@
 #!/bin/bash
 _fetch(){
-cd $WORKDIR
+cd "$WORKDIR"
 for src in ${source[@]} ; do
 	if [ -f $CURDIR/$src ] ; then
 		info "Copying: $src"
@@ -43,5 +43,5 @@ for src in ${source[@]} ; do
 		basename $src | grep ".tar.*" && tar -xf $(basename $src) || true
 	fi
 done
-cd $CURDIR
+cd "$CURDIR"
 }
