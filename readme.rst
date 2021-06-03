@@ -11,7 +11,20 @@ Easy install
 
 for install
 ===========
-DESTDIR=*your_DESTDIR* bash install.sh
+Automatic way
+
+.. code-block:: shell
+
+    DESTDIR=*your_DESTDIR* bash install.sh
+
+Manual way
+
+.. code-block:: shell
+
+    NOCONFIGURE bash autogen.sh
+    ./configure --prefix=/usr
+    make && make install
+
 
 Simple usage
 ============
