@@ -1,0 +1,19 @@
+# Regex
+unibuild-*.tar.*
+config.*
+
+# Directories
+.deps/
+autom4te.cache/
+build-aux/
+
+# Files
+Makefile.in
+configure
+configure~
+Makefile
+unibuild
+
+# Others
+aclocal.m4
+.dirstamp

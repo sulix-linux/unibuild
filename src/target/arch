@@ -60,7 +60,7 @@ __write_buildinfo() {
 	echo -e "pkgbase = $name" >> $PKGDIR/.BUILDINFO
 	echo -e "pkgver = $version-$release" >> $PKGDIR/.BUILDINFO
 	echo -e "pkgarch = $arch" >> $PKGDIR/.BUILDINFO
-	local sum="$(sha256sum "$CURDIR/$name")"
+	local sum="$(sha256sum "$CURDIR/$unibuild_file")"
 	sum=${sum%% *}
 	echo -e "pkgbuild_sha256sum = $sum" >> $PKGDIR/.BUILDINFO 
 	echo -e "packager = $maintainer" >> $PKGDIR/.BUILDINFO
