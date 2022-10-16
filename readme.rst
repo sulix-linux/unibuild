@@ -32,4 +32,4 @@ Simple usage
 
 Documentation
 =============
-Visit https://gitlab.com/sulix/devel/unibuild/-/blob/master/doc/building.rst
+Visit https://gitlab.com/sulix/devel/sources/unibuild/-/blob/master/doc/building.rst
