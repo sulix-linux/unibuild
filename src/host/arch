@@ -1,7 +1,7 @@
 #!/bin/bash
 _get_build_deps(){
 	needed=""
-	for i in ${builddepends[@]}
+	for i in ${builddepends[@]} ${depends[@]}
 	do
                 pacman -Qs $i > /dev/null || needed="$needed $i"
         done	
