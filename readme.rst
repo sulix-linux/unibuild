@@ -7,7 +7,7 @@ Easy install
 
 .. code-block:: shell
 
-	curl -s https://gitlab.com/sulix/devel/unibuild/-/raw/master/netinst.sh | bash -s --
+	curl -s https://gitlab.com/sulix/devel/sources/unibuild/-/raw/master/netinst.sh | bash -s --
 
 for install
 ===========
